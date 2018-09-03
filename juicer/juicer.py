@@ -16,5 +16,4 @@ class Juicer:
         print("Juicer started...")
         reader = ProjectReader()
         property = reader.read_property('property')
-        print("Something...")
         print(property)
