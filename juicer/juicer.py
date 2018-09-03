@@ -18,4 +18,3 @@ class Juicer:
         property = reader.read_property('property')
         print("Something...")
         print(property)
-
