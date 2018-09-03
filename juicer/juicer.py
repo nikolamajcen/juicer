@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- encoding: utf-8 -*-
 
-from utilities.ios.reader import ProjectReader
+from utilities.ios.configurator import ProjectConfigurator
 
 class Juicer:
     """
@@ -13,7 +13,5 @@ class Juicer:
         """
         It starts pre-deployment process of an iOS application.
         """
-        print("Juicer started...")
-        reader = ProjectReader()
-        property = reader.read_property('property')
-        print(property)
+        configurator = ProjectConfigurator('res/Juicer/Juicer.xcodeproj/project.pbxproj')
+        configurator.enable_versioning()

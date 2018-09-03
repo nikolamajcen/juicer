@@ -3,6 +3,11 @@
 
 class ProjectInspector:
     """
-    This class provides insights about iOS project.
-    It can show project information and also check if some features are enabled (e.g. versioning).
+    Class which provides information about project functionalities.
     """
+
+    def is_versioning_used(self):
+        return False
+
+    def current_build_number(self):
+        return 1
