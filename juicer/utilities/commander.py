@@ -4,19 +4,14 @@
 from subprocess import Popen
 from subprocess import PIPE
 
-class ProjectCommander:
+class Commander:
     """
-    Class which defines commands used for project manipulation.
+    Class which defines generic command manager.
     """
-
-    COMMAND_WHAT_VERSION = 'agvtool what-marketing-version -terse1'
-    COMMAND_UPDATE_VERSION = 'agvtool new-marketing-version'
-    COMMAND_WHAT_BUILD_NUMBER = 'agvtool what-version -terse'
-    COMMAND_UPDATE_BUILD_NUMBER = 'agvtool next-version --all'
 
     def __init__(self, project_dir: str):
         """
-        Initializes commander object for project manipulation.
+        Initializes commander object.
 
         Arguments:
             project_dir {str} -- Path to the project root directory.

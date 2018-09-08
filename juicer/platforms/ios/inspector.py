@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- encoding: utf-8 -*-
 
-from utilities.ios.commander import ProjectCommander
+from utilities.commander import Commander
+from platforms.ios.command import ProjectCommand
 
 class ProjectInspector:
     """
@@ -15,7 +16,7 @@ class ProjectInspector:
         Arguments:
             project_dir {str} -- Defines root directory of the project.
         """
-        self.__commander = ProjectCommander(project_dir)
+        self.__commander = Commander(project_dir)
 
 
     def is_versioning_enabled(self):
@@ -25,7 +26,7 @@ class ProjectInspector:
         Returns:
             {bool} -- returns True if versioning is enabled for current project.
         """
-        process = self.__commander.execute(ProjectCommander.COMMAND_WHAT_VERSION)
+        process = self.__commander.execute(ProjectCommand.WHAT_VERSION)
         (_, _) = process.communicate()
         return process.returncode == 0
 
@@ -37,7 +38,7 @@ class ProjectInspector:
         Returns:
             {(bool, str)} -- returns tuple which contains flag for success and script output (version).
         """
-        process = self.__commander.execute(ProjectCommander.COMMAND_WHAT_VERSION)
+        process = self.__commander.execute(ProjectCommand.WHAT_VERSION)
         (output, _) = process.communicate()
         return (process.returncode == 0, self.__formatted_output(output))
 
@@ -49,7 +50,7 @@ class ProjectInspector:
         Returns:
             {(bool, int)} -- Returns tuple which contains flag for success and script output
         """
-        process = self.__commander.execute(ProjectCommander.COMMAND_WHAT_BUILD_NUMBER)
+        process = self.__commander.execute(ProjectCommand.WHAT_BUILD_NUMBER)
         (output, _) = process.communicate()
         return (process.returncode == 0, int(self.__formatted_output(output)))
 

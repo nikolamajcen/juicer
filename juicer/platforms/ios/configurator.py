@@ -2,7 +2,8 @@
 # -*- encoding: utf-8 -*-
 
 from pbxproj import XcodeProject
-from utilities.ios.commander import ProjectCommander
+from utilities.commander import Commander
+from platforms.ios.command import ProjectCommand
 
 class ProjectConfigurator:
     """
@@ -17,7 +18,7 @@ class ProjectConfigurator:
             project_dir {str} -- Defines project root directory.
             pbxproj_path {str} -- Defines path to pbxproj project file.
         """
-        self.__commander = ProjectCommander(project_dir)
+        self.__commander = Commander(project_dir)
         self.__path = pbxproj_path
 
 
@@ -59,7 +60,7 @@ class ProjectConfigurator:
         Returns:
             {(bool, str)} -- Returns bool flag for success and output from process.
         """
-        process = self.__commander.execute("{} {}".format(ProjectCommander.COMMAND_UPDATE_VERSION, version))
+        process = self.__commander.execute("{} {}".format(ProjectCommand.UPDATE_VERSION, version))
         (output, _) = process.communicate()
         return (process.returncode == 0, output)
 
@@ -71,6 +72,6 @@ class ProjectConfigurator:
         Returns:
             {(bool, str)} -- Returns bool flag for success and output from process.
         """
-        process = self.__commander.execute(ProjectCommander.COMMAND_UPDATE_BUILD_NUMBER)
+        process = self.__commander.execute(ProjectCommand.UPDATE_BUILD_NUMBER)
         (output, _) = process.communicate()
         return (process.returncode == 0, output)
