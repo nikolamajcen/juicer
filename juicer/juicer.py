@@ -18,4 +18,6 @@ class Juicer:
         configurator.enable_versioning()
 
         inspector = ProjectInspector('res/Juicer/')
-        inspector.is_versioning_enabled()
+        print("versioning enabled:", inspector.is_versioning_enabled())
+        print("version:", inspector.get_version())
+        print("build number:",inspector.get_build_number())

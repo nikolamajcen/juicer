@@ -8,9 +8,14 @@ class ProjectInspector:
     Class which provides information about project functionalities.
     """
 
-    def __init__(self, path):
-        self.__commander = ProjectCommander()
-        self.__project_path = path
+    def __init__(self, project_dir: str):
+        """
+        Initializes project inspector.
+
+        Arguments:
+            project_dir {str} -- Defines root directory of the project.
+        """
+        self.__commander = ProjectCommander(project_dir)
 
 
     def is_versioning_enabled(self):
@@ -20,27 +25,43 @@ class ProjectInspector:
         Returns:
             bool -- returns True if versioning is enabled for current project.
         """
-        process = self.__commander.execute(ProjectCommander.COMMAND_WHAT_VERSION, self.__project_path)
+        process = self.__commander.execute(ProjectCommander.COMMAND_WHAT_VERSION)
         (_, _) = process.communicate()
         return process.returncode == 0
 
 
-    def get_version(self):
+    def get_version(self) -> (bool, str):
         """
-        Returns application version for all targets.
+        Returns current application version.
 
         Returns:
-            {str: str} -- returns dictionary which contains all targets with their versions.
+            (bool, str) -- returns tuple which contains flag for success and script output (version).
         """
-        return 1
+        process = self.__commander.execute(ProjectCommander.COMMAND_WHAT_VERSION)
+        (output, _) = process.communicate()
+        return (process.returncode == 0, self.__formatted_output(output))
 
 
-    def get_build_number(self):
+    def get_build_number(self) -> (bool, int):
         """
-        Return build number for all targets or configuration.
+        Returns current application build number.
 
         Returns:
+            (bool, int) -- Returns tuple which contains flag for success and script output
         """
+        process = self.__commander.execute(ProjectCommander.COMMAND_WHAT_BUILD_NUMBER)
+        (output, _) = process.communicate()
+        return (process.returncode == 0, int(self.__formatted_output(output)))
 
-        return 1
 
+    def __formatted_output(self, output: bytes) -> str:
+        """
+        Formats bytes to string.
+
+        Arguments:
+            output {bytes} -- Bytes representation of value.
+
+        Returns:
+            str -- Formatted bytes value without whitespaces.
+        """
+        return output.decode('utf-8').strip()
