@@ -23,7 +23,7 @@ class ProjectInspector:
         Checks if versioning is enabled for current project.
 
         Returns:
-            bool -- returns True if versioning is enabled for current project.
+            {bool} -- returns True if versioning is enabled for current project.
         """
         process = self.__commander.execute(ProjectCommander.COMMAND_WHAT_VERSION)
         (_, _) = process.communicate()
@@ -35,7 +35,7 @@ class ProjectInspector:
         Returns current application version.
 
         Returns:
-            (bool, str) -- returns tuple which contains flag for success and script output (version).
+            {(bool, str)} -- returns tuple which contains flag for success and script output (version).
         """
         process = self.__commander.execute(ProjectCommander.COMMAND_WHAT_VERSION)
         (output, _) = process.communicate()
@@ -47,7 +47,7 @@ class ProjectInspector:
         Returns current application build number.
 
         Returns:
-            (bool, int) -- Returns tuple which contains flag for success and script output
+            {(bool, int)} -- Returns tuple which contains flag for success and script output
         """
         process = self.__commander.execute(ProjectCommander.COMMAND_WHAT_BUILD_NUMBER)
         (output, _) = process.communicate()
@@ -62,6 +62,6 @@ class ProjectInspector:
             output {bytes} -- Bytes representation of value.
 
         Returns:
-            str -- Formatted bytes value without whitespaces.
+            {str} -- Formatted bytes value without whitespaces.
         """
         return output.decode('utf-8').strip()
