@@ -3,6 +3,7 @@
 
 from platforms.ios.configurator import ProjectConfigurator
 from platforms.ios.inspector import ProjectInspector
+from versioning.git.versioner import GitVersioner
 
 class Juicer:
     """
@@ -26,5 +27,11 @@ class Juicer:
         print("Build number:",inspector.get_build_number()[1])
 
         print()
-        print(configurator.update_version("1.0.0")[1])
+        print(configurator.update_version("3.0.0")[1])
         print(configurator.update_build_number()[1])
+
+        versioner = GitVersioner('res/Juicer/')
+        versioner.add_changes()
+        versioner.create_commit("Examle commit")
+        versioner.create_tag("555_555")
+        versioner.push_changes()

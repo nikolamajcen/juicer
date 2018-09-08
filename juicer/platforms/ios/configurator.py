@@ -60,7 +60,7 @@ class ProjectConfigurator:
         Returns:
             {(bool, str)} -- Returns bool flag for success and output from process.
         """
-        process = self.__commander.execute("{} {}".format(ProjectCommand.UPDATE_VERSION, version))
+        process = self.__commander.execute(ProjectCommand.UPDATE_VERSION.format(version))
         (output, _) = process.communicate()
         return (process.returncode == 0, self.__formatted_output(output))
 
