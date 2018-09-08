@@ -45,8 +45,8 @@ class ProjectConfigurator:
         Deletes flags for automatic versioning.
         """
         project = XcodeProject.load(self.__path)
-        project.remove_flags('CURRENT_PROJECT_VERSION')
-        project.add_flags('VERSIONING_SYSTEM', 'apple-generic')
+        project.remove_flags('CURRENT_PROJECT_VERSION', None)
+        project.remove_flags('VERSIONING_SYSTEM', None)
         project.save()
 
 
@@ -62,7 +62,7 @@ class ProjectConfigurator:
         """
         process = self.__commander.execute("{} {}".format(ProjectCommand.UPDATE_VERSION, version))
         (output, _) = process.communicate()
-        return (process.returncode == 0, output)
+        return (process.returncode == 0, self.__formatted_output(output))
 
 
     def update_build_number(self) -> (bool, str):
@@ -74,4 +74,17 @@ class ProjectConfigurator:
         """
         process = self.__commander.execute(ProjectCommand.UPDATE_BUILD_NUMBER)
         (output, _) = process.communicate()
-        return (process.returncode == 0, output)
+        return (process.returncode == 0, self.__formatted_output(output))
+
+
+    def __formatted_output(self, output: bytes) -> str:
+        """
+        Formats bytes to string.
+
+        Arguments:
+            output {bytes} -- Bytes representation of value.
+
+        Returns:
+            {str} -- Formatted bytes value without whitespaces.
+        """
+        return output.decode('utf-8').strip()

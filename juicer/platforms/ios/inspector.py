@@ -26,7 +26,7 @@ class ProjectInspector:
         Returns:
             {bool} -- returns True if versioning is enabled for current project.
         """
-        process = self.__commander.execute(ProjectCommand.WHAT_VERSION)
+        process = self.__commander.execute(ProjectCommand.WHAT_BUILD_NUMBER)
         (_, _) = process.communicate()
         return process.returncode == 0
 
@@ -52,7 +52,9 @@ class ProjectInspector:
         """
         process = self.__commander.execute(ProjectCommand.WHAT_BUILD_NUMBER)
         (output, _) = process.communicate()
-        return (process.returncode == 0, int(self.__formatted_output(output)))
+        formatted_output = self.__formatted_output(output)
+        build_number = int(formatted_output) if formatted_output.isdigit() else -1
+        return (process.returncode == 0, build_number)
 
 
     def __formatted_output(self, output: bytes) -> str:
