@@ -4,11 +4,15 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
             "name": "Python: Juicer",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/juicer/__main__.py"
+            "program": "${workspaceFolder}/juicer/__main__.py",
+            "args": [
+                "-h"
+            ]
         },
         {
             "name": "Python: Terminal (integrated)",
