@@ -4,7 +4,7 @@
 from platforms.ios.configurator import ProjectConfigurator
 from platforms.ios.inspector import ProjectInspector
 from versioning.git.versioner import GitVersioner
-from utilities.parser import InputParser
+from utilities.argparser import InputParser
 
 class Juicer:
     """
